@@ -1,17 +1,44 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-User.create(
+password = "administrator"
+
+o = Organization.create(
+	name: "Default Organization"
+)
+
+u = User.create(
   name: "Admin",
   email: "admin@example.com",
-  password: "administrator",
-  password_confirmation: "administrator",
-  roles_mask: 1)
+  password: password,
+  password_confirmation: password,
+  roles_mask: 8)
+u.roles << :super
+u.save!
+
+ou = OrganizationsUser.create(
+	user_id: u.id,
+	organization_id: o.id,
+	roles_mask: 8) 
+
+u.organizations_user << ou
+u.save!
+ 
+# User.create([{ :first_name => 'Jamie' }, { :first_name => 'Jeremy' }]) do |u|
+#   u.is_admin = false
+
 
 # Send admin login details to console
-puts "Admin user successfully created."
+puts "Admin user successfully created:"
 puts "    email: admin@example.com"
-puts "    password: administrator" 
+puts "    password: #{password}" 
+
+
+# Send org user details to console
+puts "Organization user successfully created:"
+puts "    user_id: #{ou.user_id}"
+puts "    organization_id: #{ou.organization_id}" 
+
 
 # Message.create([
 #   {   name: "Example Message", message_text: "Demo message to be sent to group.", description: "This is merely a test message." },
@@ -26,8 +53,8 @@ puts "    password: administrator"
 
 # Group.create(name: "Test Group", description: "Dummy group for tests and other fun.")
 
-# # Reminder must be created last; it refers to earlier Mesage.id and Recipient.id
-# Reminder.create([
-#   {   name: "First reminder for group", message_id: 1, recipient_id: 1, send_date: Date.today, send_time: "12:00pm" }  
-# ])
+# Reminder must be created last; it refers to earlier Mesage.id and Recipient.id
+Reminder.create([
+  {   name: "First reminder for group", message_id: 1, recipient_id: 1, batch_id: "1", send_date: Date.today, send_time: "12:00pm" }  
+])
 

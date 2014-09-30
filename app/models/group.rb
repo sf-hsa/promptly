@@ -1,9 +1,12 @@
 class Group < ActiveRecord::Base
-  attr_accessible :created_at, :name, :updated_at, :group_id, :description, :group_name_id, :editable, :active
-  attr_accessible :recipient_ids, :recipient_attributes, :reminder_ids, :reminder_attributes
+  attr_accessible :created_at, :name, :updated_at, :group_id, :description, :group_name_id, :editable, :active, :recipient_ids, :recipient_attributes, :reminder_ids, :reminder_attributes, :organization_id
+
   has_and_belongs_to_many :reminders
   has_and_belongs_to_many :recipients
   accepts_nested_attributes_for :recipients
+  belongs_to :organization
+
+  scope :organization, ->(org_id) { where("organization_id = ?", org_id) }
 
   def self.add_phone_numbers_to_group(phone_numbers, the_group)
     if phone_numbers.is_a? Array
@@ -22,7 +25,7 @@ class Group < ActiveRecord::Base
     the_group.recipient_ids = phones_to_group
   end
 
-  def self.add_reminders_to_group(reminder, group)
-    group.reminders << reminder
+  def self.find_recipients_in_group(group_id)
+    Group.find(group_id).recipients
   end
 end

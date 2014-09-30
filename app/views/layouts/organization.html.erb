@@ -1,0 +1,9 @@
+<% content_for :organization do %>
+  <%= render 'shared/subnav' %>
+  <div class="row"
+    <div id="content" class="small-12 columns">
+      <%= yield %>
+    </div>
+  </div>
+<% end %>
+<%= render file: "layouts/application" %>
