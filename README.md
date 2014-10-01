@@ -82,19 +82,18 @@ $ rake db:setup
 
 9) Start the server
 ```sh
-$ foreman start
+$ rails s
 ```
 You should see something this in the console:
 
 ```
-12:01:14 worker.1 | started with pid 3228
-12:01:14 web.1    | started with pid 3227
-12:01:16 web.1    | I, [2013-11-11T12:01:16.139986 #3227]  INFO -- : listening on addr=0.0.0.0:5000 fd=7
-12:01:16 web.1    | I, [2013-11-11T12:01:16.140103 #3227]  INFO -- : worker=0 spawning...
-12:01:16 web.1    | I, [2013-11-11T12:01:16.142336 #3227]  INFO -- : master process ready
-12:01:16 web.1    | I, [2013-11-11T12:01:16.144046 #3229]  INFO -- : worker=0 spawned pid=3229
-12:01:16 web.1    | I, [2013-11-11T12:01:16.144531 #3229]  INFO -- : Refreshing Gem list
-12:01:20 web.1    | I, [2013-11-11T12:01:20.205813 #3229]  INFO -- : worker=0 ready
+=> Booting WEBrick
+=> Rails 3.2.19 application starting in development on http://0.0.0.0:3000
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+[2014-10-01 12:30:02] INFO  WEBrick 1.3.1
+[2014-10-01 12:30:02] INFO  ruby 2.0.0 (2014-05-08) [x86_64-darwin13.1.0]
+[2014-10-01 12:30:02] INFO  WEBrick::HTTPServer#start: pid=31272 port=3000
 ```
 
 You can now visit Promptly at <a href="http://localhost:5000">http://localhost:5000</a>
