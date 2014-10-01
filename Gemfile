@@ -19,8 +19,6 @@ gem 'json'
 gem 'rake'
 gem 'daemons'
 gem 'pg'
-gem 'unicorn'
-gem 'foreman'
 gem 'composite_primary_keys'
 gem 'browser-timezone-rails'
 gem 'newrelic_rpm', '>=3.8'
@@ -38,6 +36,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'
+  gem 'unicorn'
+  gem 'foreman'
 end
 
 # Gems used only for assets and not required
