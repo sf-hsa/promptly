@@ -96,12 +96,12 @@ You should see something this in the console:
 [2014-10-01 12:30:02] INFO  WEBrick::HTTPServer#start: pid=31272 port=3000
 ```
 
-You can now visit Promptly at <a href="http://localhost:5000">http://localhost:5000</a>
+You can now visit Promptly at <a href="http://localhost:3000">http://localhost:3000</a>
 
 You can sign in with email=**admin@example.com** and pass=**administrator**.
 
 ### Deploy to Heroku
-[Signup for Heroku](https://id.heroku.com/signup) if you havn't already.
+[Signup for Heroku](https://id.heroku.com/signup) if you haven't already.
 
 1) Create a Heroku app and push your code
 ```sh
