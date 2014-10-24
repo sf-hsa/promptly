@@ -13,8 +13,43 @@
   *= require ie/ie-nav
  */
 
- .promptly-sub-nav {
-  width: 100%;
+@import "constants";
+
+$navbarBackground: $blue;
+$navbarBackgroundHighlight: $darkBlue;
+$navbarBrandColor: $white;
+$navbarText: $white;
+$navbarBrandColor: $white;
+$navbarLinkColor: darken($white, 5%);
+$navbarLinkColorHover: $white;
+$navbarLinkColorActive: $white;
+$navbarLinkBackgroundHover: $navbarBackground;
+$navbarLinkBackgroundActive: $darkBlue;
+
+.promptly-sub-nav {
+  background: $lightGray;
+  margin-top: 2px;
+  width: 100% !important;
+  margin-left: 0em !important;
+  @include sub-nav(
+    // Control the color of the divider between links.
+    // Control your font-size per label.
+    $font-size: rem-calc(18),
+    // Change the background color for your labels
+    $active-bg: white,
+    $font-color: $blue
+  );
+  .right-side {
+    float: right;
+  }
+  dd a {
+    text-transform: none;
+    &:hover {
+      background: $blue;
+      border: none;
+      color: #fff;
+    }
+  }
 }
 
 
