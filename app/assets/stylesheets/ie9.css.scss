@@ -45,10 +45,11 @@ $navbarLinkBackgroundActive: $darkBlue;
   .right-side {
     float: right;
   }
-  dd {
-    .active a {
-      color: #999;
-    }
+  dd.active a {
+    color: #999;
+  }
+  dt.active a {
+    color: #999;
   }
   dd a {
     text-transform: none;
