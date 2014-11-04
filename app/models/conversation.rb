@@ -20,11 +20,9 @@ class Conversation < ActiveRecord::Base
   scope :text_responses, where(:status => 'received')
   scope :unsubscribed, where('lower(message) IN (?)', unsubscribed)
   scope :subscribed, where('lower(message) IN (?)', subscribed)
-<<<<<<< HEAD
-  scope :all_sent, where('message_id IS NOT NULL')
-=======
+
   scope :all_sent, where('status = ?', "sent")
->>>>>>> 243111b54f2696d62cd76b52427f546ca80ea079
+  
   scope :grouped_sent_conversations, lambda  { |*limit|
     # Hack to have the lambda take an optional argument.
     limit = limit.empty? ? 1000000 : limit.first
