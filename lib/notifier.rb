@@ -33,7 +33,7 @@ class Notifier
     attr_reader :conversation
     
   end
-
+  #adding a comment
   def initialize(message_id, options ={})
       defaults = {
         group_id: nil,
