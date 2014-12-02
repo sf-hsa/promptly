@@ -33,30 +33,17 @@ class Notifier
     attr_reader :conversation
     
   end
-  #adding a comment
-  def initialize(message_id, options ={})
-      defaults = {
-        group_id: nil,
-        recipient_id: nil,
-        organization_id: nil
-      }
-    
-    options = defaults.merge(options)
-    @recipient_id, @message_id, @group_id, @organization_id = options[:recipient_id], message_id, options[:group_id], options[:organization_id]
+
+  def initialize(message_id, group_id: nil, recipient_id: nil, organization_id: nil)
+    @recipient_id, @message_id, @group_id, @organization_id = recipient_id, message_id, group_id, organization_id
     @recipients = []
     if @recipient_id
       @recipients << Recipient.find(@recipient_id)
     end
   end
 
-  def self.perform(message_id, options ={})
-      defaults = {
-        group_id: nil,
-        recipient_id: nil,
-        organization_id: nil
-      }
-      options = defaults.merge(options)
-    new(message_id, group_id: options[:group_id], recipient_id: options[:recipient_id], organization_id: options[:organization_id]).perform
+  def self.perform(message_id, group_id: nil, recipient_id: nil, organization_id: nil)
+    new(message_id, group_id: group_id, recipient_id: recipient_id, organization_id: organization_id).perform
   end
 
   def perform

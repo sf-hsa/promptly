@@ -39,35 +39,28 @@ class Reminder < ActiveRecord::Base
     end
   end
 
-  def self.create_new_reminders(message, send_date, options ={})
-      defaults = {
-        send_time: '12:00pm',
-        group_id: nil,
-        recipient: nil,
-        organization_id: nil
-      }
-      options = defaults.merge(options)
+  def self.create_new_reminders(message, send_date, send_time: '12:00pm', group_id: nil, recipient: nil, organization_id: nil)
 
-      reminder_time = Time.zone.parse(options[:send_time])
+      reminder_time = Time.zone.parse(send_time)
       send_date = check_for_valid_date(send_date)
-      if options[:recipient]
-        the_recipient = options[:recipient].id
+      if recipient
+        the_recipient = recipient.id
       else
         the_recipient = nil
       end
       begin
         reminder_date = DateTime.new(send_date.year, send_date.month, send_date.day, reminder_time.hour, reminder_time.min, reminder_time.sec, reminder_time.zone).getutc
-        @reminders = Reminder.includes(:groups, :organization, :message).where(:groups => {id: options[:group_id]}, organization_id: options[:organization_id], message_id: message.id)
+        @reminders = Reminder.includes(:groups, :organization, :message).where(:groups => {id: group_id}, organization_id: organization_id, message_id: message.id)
         if @reminders.empty?
           @reminder = Reminder.new(message_id: message.id)
-          @reminder.create_and_save_reminder(the_recipient, reminder_time, reminder_date, options)
+          @reminder.create_and_save_reminder(the_recipient, reminder_time, reminder_date, group_id, organization_id)
           @reminder.save!
           if @reminder.job_id.nil?
             @reminder.add_to_queue
           end
         else
-          @reminder = Reminder.includes(:groups, :organization, :message).where(:groups => {id: options[:group_id]}, organization_id: options[:organization_id], message_id: message.id, send_date: reminder_date.to_datetime).first_or_create
-          @reminder.create_and_save_reminder(the_recipient, reminder_time, reminder_date, options)
+          @reminder = Reminder.includes(:groups, :organization, :message).where(:groups => {id: group_id}, organization_id: organization_id, message_id: message.id, send_date: reminder_date.to_datetime).first_or_create
+          @reminder.create_and_save_reminder(the_recipient, reminder_time, reminder_date, group_id, organization_id)
           @reminder.save!
           if @reminder.job_id.nil?
             @reminder.add_to_queue
@@ -97,12 +90,12 @@ class Reminder < ActiveRecord::Base
     Reminder.where('batch_id = ? AND recipient_id = ?', batch_id_check, phone_check.id).exists?
   end
 
-  def create_and_save_reminder(the_recipient, reminder_time, reminder_date, options)
+  def create_and_save_reminder(the_recipient, reminder_time, reminder_date, group_id, organization_id)
     update_attributes(recipient_id: the_recipient)
     update_attributes(send_date: reminder_date)
     update_attributes(send_time: reminder_time) 
-    update_attributes(group_ids: options[:group_id]) 
-    update_attributes(organization_id: options[:organization_id])  
+    update_attributes(group_ids: group_id) 
+    update_attributes(organization_id: organization_id)  
   end
 
   def add_to_queue
