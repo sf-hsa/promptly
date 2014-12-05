@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '~> 3.2.13'
+gem 'rails', '~> 3.2.21'
 gem 'friendly_id'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'twilio-ruby'
