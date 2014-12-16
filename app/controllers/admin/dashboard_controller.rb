@@ -66,6 +66,7 @@ class Admin::DashboardController < OrgController
       end
     end
     respond_to do |format|
+      format.html
       format.csv { render csv: notifications_scope }
     end
   end
