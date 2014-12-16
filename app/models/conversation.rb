@@ -39,7 +39,7 @@ class Conversation < ActiveRecord::Base
     where("message_id IS NOT NULL and status =? and date >= ? and from_number = ?", "sent", DateTime.now - 1.month, org_phone_number)
   }
 
-  scope :like, ->(search) { where("message ilike ?", '%' + search + '%') }
+  scope :like, ->(search) { where("message like ?", '%' + search + '%') }
 
   scope :date_filter, lambda  { |*args|
    start_date = args[0][:start_date]
