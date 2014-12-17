@@ -35,7 +35,7 @@ class Admin::DashboardController < OrgController
       notifications_scope = notifications_scope.date_filter(start_date: params[:start_date], end_date: params[:end_date]) if !params[:start_date].empty? || !params[:end_date].empty?
     end
     @notifications = smart_listing_create(:notifications, notifications_scope, partial: "admin/dashboard/listing")
-    @export_link = params
+    @export_link = Base64.encode64(params.to_s)
     respond_to do |format|
       format.html # index.html.erb
       format.json 
@@ -46,13 +46,9 @@ class Admin::DashboardController < OrgController
 
   def export
     notifications_scope = Conversation.organization(@organization.id)
-    if !@options.nil?
-      @options = params[:options].split("&")
-      @options_hash = Hash[]
-      @options.each do |o|
-        @a = o.split("=")
-        @options_hash[@a[0]] = @a[1]
-      end
+    @params = Base64.decode64(params[:options])
+    if !@params.nil?
+      @options_hash = JSON.parse @params.gsub('=>', ':')
 
       if !@options_hash["searchfilter"].nil? 
         notifications_scope = notifications_scope.like(@options_hash["searchfilter"]) if !@options_hash["searchfilter"].empty?
@@ -66,7 +62,6 @@ class Admin::DashboardController < OrgController
       end
     end
     respond_to do |format|
-      format.html
       format.csv { render csv: notifications_scope }
     end
   end
