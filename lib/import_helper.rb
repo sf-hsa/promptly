@@ -43,7 +43,7 @@ class ImportHelper < ActiveRecord::Base
 
     # Find or create group
     puts "Finding/creating group"
-    g = Group.organization(params[:organization_id]).where(group_name_id: group_name_id).first_or_create(
+    g = Group.organization(:organization_id).where(group_name_id: group_name_id).first_or_create(
       :group_name_id => group_name_id,
       :name => group_name_id,
       :editable => 0,
