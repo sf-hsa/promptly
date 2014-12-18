@@ -10,6 +10,15 @@ every 1.day, :at => '10:00 am' do
   rake "import_group[dc_waived_calfresh_other,dc_waived_calfresh_other, 1]", :environment => 'production'
   rake "import_group[waived_cases,all_waived_cases, 1]", :environment => 'production'
   rake "import_group[dc_waived_medical,dc_waived_medical, 21]", :environment => 'production'
+  rake "import_group[waived_cases,waived_cases, 21]", :environment => 'production'
+  rake "import_group[waived_medical,waived_medical, 21]", :environment => 'production'
+  rake "import_group[waived_medical_chinese,waived_medical_chinese, 21]", :environment => 'production'
+  rake "import_group[waived_medical_english,waived_medical_english, 21]", :environment => 'production'
+  rake "import_group[waived_medical_other,waived_medical_other, 21]", :environment => 'production'
+  rake "import_group[waived_medical_russian,waived_medical_russian, 21]", :environment => 'production'
+  rake "import_group[waived_medical_spanish,waived_medical_spanish, 21]", :environment => 'production'
+  rake "import_group[waived_medical_tagalog,waived_medical_tagalog, 21]", :environment => 'production'
+  rake "import_group[waived_medical_vietnamese,waived_medical_vietnamese, 21]", :environment => 'production'
 end
 
 every 2.minutes do
