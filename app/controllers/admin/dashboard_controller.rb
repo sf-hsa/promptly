@@ -45,11 +45,11 @@ class Admin::DashboardController < OrgController
   end
 
   def export
-    notifications_scope = Conversation.organization(@organization.id)
     @params = Base64.decode64(params[:options])
     if !@params.nil?
       @options_hash = JSON.parse @params.gsub('=>', ':')
 
+      notifications_scope = Conversation.organization(@organization.id)
       if !@options_hash["searchfilter"].nil? 
         notifications_scope = notifications_scope.like(@options_hash["searchfilter"]) if !@options_hash["searchfilter"].empty?
       end
