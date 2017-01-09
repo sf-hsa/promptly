@@ -51,9 +51,15 @@ class Notifier
       @group_id.each do |group|
         @group_recipients = Group.find_recipients_in_group(group)
         @group_recipients.each do |recipient|
-          the_message = client.account.sms.messages.create(attributes(recipient))
-          Rails.logger.info "The message = #{the_message}"
-          Logger.log(the_message, recipient, @organization_id, group)
+		
+	  begin
+            the_message = client.account.sms.messages.create(attributes(recipient))
+            Rails.logger.info "The message = #{the_message}"
+            Logger.log(the_message, recipient, @organization_id, group)
+	  rescue
+	    Rails.logger.info "The message = Twilio could not send this user a message.  User may reply text Stop"
+	  end
+		  
         end
       end
     end
