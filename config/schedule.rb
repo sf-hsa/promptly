@@ -65,7 +65,7 @@ every 1.day, :at => '10:00 am' do
   
 end
 
-every 2.minutes do
+every 2.hours do
   rake "update_daily_conversations", :environment => 'production'
 end
 
