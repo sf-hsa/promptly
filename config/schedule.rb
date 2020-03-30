@@ -65,9 +65,13 @@ every 1.day, :at => '10:00 am' do
   
 end
 
-every 2.hours do
+=begin
+  Because the worker sends 500 messages ever 15 minutes.  Running every 2 minutes will 
+  max out server memory.  Disable it for now 3/30/2020
+every 2.minutes do
   rake "update_daily_conversations", :environment => 'production'
 end
+=end
 
 every :monday, :at => '8am' do
   runner "Conversation.csv_export_stop_start"
